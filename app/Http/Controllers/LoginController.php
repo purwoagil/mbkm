@@ -22,7 +22,20 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)){
             $request ->session()->regenerate();
-            return redirect()->intended('/home');
+            if(auth()->user()->Role === "koor"){
+
+                return redirect()->intended('/homekoor');
+
+            }elseif(auth()->user()->Role === "dosen")
+            {
+                return redirect()->intended('/homedosen');
+    
+            }elseif(auth()->user()->Role === "mahasiswa")
+            {
+    
+                return redirect()->intended('/home');
+    
+            }
         }
 
         return back()->with('loginError','Login failed!');

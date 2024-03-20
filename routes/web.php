@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TambahKegiatanController;
+use App\Http\Controllers\KoorController;
+use App\Http\Controllers\DosenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,17 +19,29 @@ use App\Http\Controllers\TambahKegiatanController;
 */
 
 //Route::get('/home', [HomeController::class,'index']);
- Route::get('/home', [HomeController::class,'index'])->middleware('auth');
- Route::get('/tambahkegiatan', [TambahKegiatanController::class,'index'])->middleware('auth');
- Route::get('/bukti', [TambahKegiatanController::class,'BuktiMBKMindex'])->middleware('auth');
+//Route ::get('/', [LoginController::class,'index'])->name('login')->middleware('guest');
+Route ::get('/daftar', [LoginController::class,'daftar'])->middleware('guest');
 
 
-//Route ::get('/', [LoginController::class,'index'])->name('login');
-Route ::get('/', [LoginController::class,'index'])->name('login')->middleware('guest');
+ Route::get('/home', [HomeController::class,'index'])->middleware('mahasiswa');
+ Route::get('/tambahkegiatan', [TambahKegiatanController::class,'index'])->middleware('mahasiswa');
+ Route::get('/bukti', [TambahKegiatanController::class,'BuktiMBKMindex'])->middleware('mahasiswa');
+
+ Route::get('/homekoor', [KoorController::class,'index'])->middleware('koor');
+ Route::get('/tambahkegiatankoor', [KoorController::class,'tambahKegiatanKoorView'])->middleware('koor');
+ Route::get('/konfirmasimhs', [KoorController::class,'konfirmasiMhsKoorView'])->middleware('koor');
+ 
+ Route::get('/homedosen', [DosenController::class,'index'])->middleware('dosen');
+
+
+Route ::get('/', [LoginController::class,'index'])->name('login');
+
+
 Route ::post('/login', [LoginController::class,'authenticate']);
 Route ::post('/logout', [LoginController::class,'logout']);
-
-Route ::get('/login/daftar', [LoginController::class,'daftar'])->middleware('guest');
-// Route ::get('/daftar', [LoginController::class,'daftar']);
-Route ::get('/login/tentang', [LoginController::class,'tentang']);
 Route ::post('/daftar', [LoginController::class,'store']);
+
+
+
+
+//Route ::get('/login/tentang', [LoginController::class,'tentang']);
