@@ -16,8 +16,8 @@ class Dosen extends Migration
         Schema::create('dosen', function (Blueprint $table) {
             $table->id();
             $table->char('nik', 8)->unique();
-            $table->string('namaDosen', 50);
-            $table->string('passDosen', 25);
+            $table->string('namaDosen', 50)->nullable();
+            $table->string('passDosen', 25)->nullable();
 
             // Constraints
 

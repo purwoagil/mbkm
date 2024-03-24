@@ -5,11 +5,7 @@
     
 <div class="container-fluid">
 
-    <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-        For more information about DataTables, please visit the <a target="_blank"
-            href="https://datatables.net">official DataTables documentation</a>.</p>
+   
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -18,36 +14,42 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="showkoor" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            
+                            <th style="display:none;">kodeMBKM</th>
                             <th>No</th>
                             <th>Jenis Kegiatan</th>
                             <th>Skema</th>
                             <th>Mitra</th>
                             <th>Periode</th>
-                            <th>matakuliah</th>
+                            <th>Detail</th>
+                           
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Program Kreativitas Mahasiswa</td>
-                            <td>06/05/2023</td>
-                            <td>Peserta</td>
-                            <td>Nasional</td>
-                            <td>Disetujui</td>
-                            
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>TBIG Youth Changemaker</td>
-                            <td>05/12/2023</td>
-                            <td>Juara 2</td>
-                            <td>Nasional</td>
-                            <td>Disetujui</td>
-                            
-                        </tr>                  
+                    <tbody style="text-align:center;">
+                    
+                    @php
+                    $value = 1;
+                    @endphp
+            
+            @foreach($distinctRecords as $item)
+            <tr>
+                
+                <td style="display:none;">{{ $item['kodeMBKM'] }}</td>
+                <td>{{ $value }}</td>
+                <td>{{ $item['jenisProgram'] }}</td>
+                <td>{{ $item['jenisSkema'] }}</td>
+                <td>{{ $item['namaMitra'] }}</td>
+                <td>{{ $item['periode'] }}</td>
+                <td><a href="#" class="action-link" data-parameter="additional-data">cek</a></td>
+                <!-- Add more table cells as needed -->
+            </tr>
+            @php
+                    $value++;
+            @endphp
+            @endforeach
                     </tbody>
                 </table>
             </div>
@@ -55,5 +57,35 @@
     </div>
 
 </div>
+
+<script>
+    $(document).ready(function() {
+        // Inisialisasi DataTable
+        var dataTable = $('#showkoor').DataTable();
+
+        // Tambahkan event listener ke hyperlink di setiap baris
+        $('#showkoor tbody').on('click', 'a', function(e) {
+            e.preventDefault(); // Mencegah aksi default hyperlink
+
+            // Ambil data dari baris yang sesuai
+            var rowData = dataTable.row($(this).closest('tr')).data();
+
+            // Kirim data ke fungsi Anda
+            myFunction(rowData);
+        });
+
+        function myFunction(data) {
+        // Logika fungsi Anda di sini
+        console.log(data[0]);
+
+        // Construct the URL with the parameter
+        var url = "{{ route('cekkoor', ':id') }}";
+        url = url.replace(':id', data[0]);
+            
+        window.location.href = url; 
+    }
+    });
+</script>
+
 
 @endsection

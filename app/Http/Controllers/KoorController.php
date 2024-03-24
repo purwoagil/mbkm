@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\mbkm;
+use App\Models\matakuliah;
+use Illuminate\Support\Str;
 
 class KoorController extends Controller
 {
@@ -14,7 +17,39 @@ class KoorController extends Controller
      */
     public function index()
     {
-        return view('homekoor');
+        $distinctRecords = mbkm::select('kodeMBKM','namaMitra', 'jenisProgram', 'jenisSkema', 'periode')
+    ->distinct()
+    ->get();
+        
+        //$data = mbkm::all();
+        return view('homekoor',compact('distinctRecords'));
+    }
+
+    public function getData()
+    {
+       // Fetch data from the database
+
+
+       $data = mbkm::all();
+       
+       
+       // Add row numbers to the data
+       $data->transform(function ($item, $key) {
+           $item['no'] = $key + 1;
+           return $item;
+       });
+       $data = $data->toArray();
+       dd($data);
+       // Return data as JSON response
+       return response()->json($data);
+    }
+
+    public function getCek($id){
+        $results0 = mbkm::where('kodeMbkm', '=', $id)->get();
+        $results1 = mbkm::where('kodeMbkm', '=', $id)->select('kodeMatkul')->get();
+        $results2 = matakuliah::select('kodeMatkul','namaMatkul','sks','namaDosen')->whereIn('kodeMatkul', $results1->pluck('kodeMatkul')->toArray())->get();
+        dd($results2->pluck('kodeMatkul','namaMatkul','sks','namaDosen')->toArray());
+        return view('detailmbkmkoor',compact('results2'));
     }
 
 
@@ -45,7 +80,32 @@ class KoorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+          
+            for ($x = 0; $x < COUNT($request['kodeMatkul']); $x++) {
+                $mbkm = new Mbkm();
+                if ($x==0){
+
+                    $kode = Str::random(5);
+                    while (mbkm::where('kodeMbkm', '=', $kode)->count()===1){
+                    $kode = Str::random(5);
+                    }
+
+                }
+
+                $mbkm->kodeMBKM = $kode;
+                //dd($mbkm->kodeMBKM);
+                $mbkm->jenisProgram = $request['jenisProgram'];
+                $mbkm->jenisSkema = $request['jenisSkema'];
+                $mbkm->namaMitra = $request['namaMitra'];
+                $mbkm->periode = $request['periode'];
+                $mbkm->sks = $request['sks'][$x];
+                $mbkm->kodeMatkul = $request['kodeMatkul'][$x];
+                $mbkm->namaMatkul = $request['namaMatkul'][$x];
+                $mbkm->namaDosen = $request['namaDosen'][$x];
+                $mbkm->save();
+              }
+
+        return redirect('/tambahkegiatankoor')->with('success', 'Insert Data successful!');
     }
 
     /**
@@ -56,7 +116,9 @@ class KoorController extends Controller
      */
     public function show($id)
     {
-        //
+
+        
+
     }
 
     /**

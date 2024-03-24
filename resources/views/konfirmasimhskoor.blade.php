@@ -13,11 +13,12 @@
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>Nama Mahasiswa</th>
                         <th>Jenis Kegiatan</th>
                         <th>Skema</th>
                         <th>Mitra</th>
                         <th>Periode</th>
-                        <th>Bukti MBKM</th>
+                        <th>Konfirmasi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,8 +27,9 @@
                         <td>Kerja Praktik</td>
                         <td>3 SKS</td>
                         <td>Argo Wibowo</td>
+                        <td>Argo Wibowo</td>
                         <td>2017/2018</td>
-                        <td><a href="" class="">Unggah</a></td>
+                        <td><button class="btn btn-success justify-content-between ">Terima</button><button class="btn btn-danger justify-content-between ">Tolak</button></td>
 
                         
                     </tr>
@@ -36,8 +38,10 @@
                         <td>Sains Data</td>
                         <td>3 SKS</td>
                         <td>Argo Wibowo</td>
+                        <td>Argo Wibowo</td>
                         <td>2017/2018</td>
-                        <td><a href="" class="">Unggah</a></td>
+                        <td><button class="btn btn-success justify-content-between ">Terima</button><button class="btn btn-danger justify-content-between ">Tolak</button></td>
+
                     </tr>                  
                 </tbody>
             </table>

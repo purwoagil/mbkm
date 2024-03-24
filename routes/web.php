@@ -28,8 +28,13 @@ Route ::get('/daftar', [LoginController::class,'daftar'])->middleware('guest');
  Route::get('/bukti', [TambahKegiatanController::class,'BuktiMBKMindex'])->middleware('mahasiswa');
 
  Route::get('/homekoor', [KoorController::class,'index'])->middleware('koor');
+ Route::get('/datakoor', [KoorController::class,'getData'])->name('getData');
+ //Route::get('/cekkoor', [KoorController::class,'getData'])->name('cekkoor');
+ Route::get('/cekkoor/{id}', [KoorController::class,'getCek'])->name('cekkoor');
  Route::get('/tambahkegiatankoor', [KoorController::class,'tambahKegiatanKoorView'])->middleware('koor');
  Route::get('/konfirmasimhs', [KoorController::class,'konfirmasiMhsKoorView'])->middleware('koor');
+ Route::post('/tambahkegiatankoor', [KoorController::class,'store']);
+
  
  Route::get('/homedosen', [DosenController::class,'index'])->middleware('dosen');
 

@@ -16,11 +16,11 @@ class Matakuliah extends Migration
         Schema::create('matakuliah', function (Blueprint $table) {
             $table->id();
             $table->char('kodeMatkul', 6)->unique();
-            $table->char('nik', 8);
-            $table->string('namaMatkul', 50);
-            $table->integer('sks');
-            $table->string('namaDosen', 50);
-            $table->char('nilai', 2);
+            $table->char('nik', 8)->nullable();
+            $table->string('namaMatkul', 50)->nullable();
+            $table->string('sks',2)->nullable();
+            $table->string('namaDosen', 50)->nullable();
+            $table->char('nilai', 2)->nullable();
 
 
             // Timestamps

@@ -15,12 +15,18 @@ class Mbkm extends Migration
     {
         Schema::create('mbkm', function (Blueprint $table) {
             $table->id();
-            $table->char('kodeMBKM', 5)->unique();
-            $table->char('kodeMatkul', 6);
-            $table->string('namaMitra', 50);
-            $table->string('jenisProgram', 50);
-            $table->string('jenisSkema', 50);
-            $table->char('periode', 9);
+            $table->char('kodeMBKM', 5);
+            $table->char('kodeMatkul', 6)->nullable();
+            $table->string('nik', 8)->nullable();
+            $table->char('nim', 8)->nullable();
+            $table->string('namaMitra', 50)->nullable();
+            $table->string('jenisProgram', 50)->nullable();
+            $table->string('jenisSkema', 50)->nullable();
+            $table->string('namaMatkul', 50)->nullable();
+            $table->string('sks', 50)->nullable();
+            $table->string('namaDosen', 50)->nullable();
+            $table->char('periode', 9)->nullable();
+
 
             // Constraints
 
