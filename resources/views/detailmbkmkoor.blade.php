@@ -4,7 +4,7 @@
    
     
 <div class="container-fluid">
-
+    
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Tables</h1>
     <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
@@ -14,7 +14,22 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            <div class="row">
+                <div class="col">
+                <label for="formGroupExampleInput" class="form-label">{{$results0[0]->jenisProgram}}</label>
+                </div>
+                <div class="col">
+                <label for="formGroupExampleInput" class="form-label">{{$results0[0]->periode}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                <label for="formGroupExampleInput" class="form-label">{{$results0[0]->jenisSkema}}</label>
+                </div>
+                <div class="col">
+                <label for="formGroupExampleInput" class="form-label">{{$results0[0]->namaMitra}}</label>
+                </div>
+            </div>
         </div>
         <div class="card-body">
 

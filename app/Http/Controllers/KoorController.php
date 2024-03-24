@@ -45,11 +45,10 @@ class KoorController extends Controller
     }
 
     public function getCek($id){
-        $results0 = mbkm::where('kodeMbkm', '=', $id)->get();
+        $results0 = mbkm::select('kodeMBKM','namaMitra', 'jenisProgram', 'jenisSkema', 'periode')->distinct()->where('kodeMBKM', '=', $id)->get();
         $results1 = mbkm::where('kodeMbkm', '=', $id)->select('kodeMatkul')->get();
-        $results2 = matakuliah::select('kodeMatkul','namaMatkul','sks','namaDosen')->whereIn('kodeMatkul', $results1->pluck('kodeMatkul')->toArray())->get();
-        dd($results2->pluck('kodeMatkul','namaMatkul','sks','namaDosen')->toArray());
-        return view('detailmbkmkoor',compact('results2'));
+        $results2 = matakuliah::whereIn('kodeMatkul', $results1->pluck('kodeMatkul')->toArray())->get();
+        return view('detailmbkmkoor',compact('results2','results0'));
     }
 
 
